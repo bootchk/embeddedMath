@@ -2,6 +2,10 @@
 #include <cassert>
 #include "timeMath.h"
 
+// implementation uses lib radioSoC: LongClock and Timer
+#include <clock/longClock.h>
+#include <clock/timer.h>
+
 
 /*
  * LongTime math

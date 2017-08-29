@@ -1,8 +1,8 @@
 #pragma once
 
-#include "types.h"	// DeltaTime
+#include "types.h"	// DeltaTime, LongTime
 
-#include <nRF5x.h>   // LongTime, LongClock
+//#include <radioSoC.h>   // LongTime, LongClock
 
 /*
  * Knows math on time.
