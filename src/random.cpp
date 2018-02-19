@@ -1,6 +1,6 @@
 
 #include <cassert>
-#include <inttypes.h>
+
 #include <cstdlib>	// rand() etc
 
 #include "random.h"	// Our random.h, not from libstdc++
@@ -13,17 +13,23 @@
  *
  * Notes:
  *
- * Std C rand() yields value in range [0, RAND_MAX],
- * Some sources say RAND_MAX >= 32767,
+ * Std C rand() yields value in range [0, RAND_MAX].
+ * !!! rand() returns signed type, but guaranteed to be positive (MSB == 0)
+ *
+ * Here we assume that int is 32 bits and RAND_MAX is 2^31
+ *
+ * Some sources say RAND_MAX >= 32767 (2^15)
  * i.e. result fits in, but does not uniformly fill uint_16!!!
+ *
  * (!!! The shell command rand() yields random bytes i.e. uint8_t.)
  *
+ * See below, we don't use %.
  * % is remainder operator.
  * With signed operands, % may yield negative result on some implementations.
  * Here we explicitly use unsigned operands.
  */
 
-uint16_t randUnsignedInt16(uint16_t min, uint16_t max) {
+unsigned int randUnsignedInt(unsigned int min, unsigned int max) {
 	/*
 	 * Typical implementation with slight flaws in uniform distribution:
 	 * Unless max-min divides int without a remainder, binning means some bins receive more
@@ -41,10 +47,14 @@ uint16_t randUnsignedInt16(uint16_t min, uint16_t max) {
 	 */
 	int intResult = min + rand() / (RAND_MAX / (max - min + 1) + 1);
 
-	// Convert, i.e. take lower two LSB
-	assert(intResult < UINT16_MAX);	// No loss of data
-	uint16_t result = (uint16_t) intResult;
-	assert (result >= min && result <= max);	// ensure result as specified
+	/*
+	 * The C compiler does NOT complain about conversion from unsigned int to int,
+	 * because it is so common?
+	 */
+	unsigned int result = intResult;
+
+	// ensure result as specified
+	assert (result >= min && result <= max);
 	return result;
 }
 

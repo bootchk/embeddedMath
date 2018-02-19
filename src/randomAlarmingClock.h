@@ -1,8 +1,7 @@
 #pragma once
 
-#include <inttypes.h>
 
-typedef uint16_t ClockCount;
+typedef unsigned int ClockCount;
 
 /*
  * Specialized RNG Random Number Generator
