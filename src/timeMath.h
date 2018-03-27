@@ -55,6 +55,11 @@ public:
 	 * Clamped to zero if rhs is larger than leftHandSize
 	 */
 	static DeltaTime clampedSubtraction(DeltaTime lhs, DeltaTime rhs);
+	/*
+	 * Difference of DeltaTimes.
+	 * As above, but also asserts if lhs is larger than rhs (if would clamp)
+	 */
+	static DeltaTime deltaSubtraction(DeltaTime lhs, DeltaTime rhs);
 
 	/*
 	 * Elapsed DeltaTime since earlierTime, referenced to now.

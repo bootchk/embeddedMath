@@ -40,6 +40,8 @@ DeltaTime TimeMath::clampedTimeDifference(LongTime laterTime, LongTime earlierTi
 	// Any stronger assertions, i.e. sanity re schedule must be done by caller
 }
 
+
+
 /*
  * Not require futureTime later than now, returns 0 if it is.
  * Requires futureTime less than MaxDeltaTime from now
@@ -109,6 +111,11 @@ DeltaTime TimeMath::clampedSubtraction(DeltaTime lhs, DeltaTime rhs){
 	if (rhs >= lhs)   result = 0;
 	else             result = lhs - rhs;
 	return result;
+}
+
+DeltaTime TimeMath::deltaSubtraction(DeltaTime lhs, DeltaTime rhs){
+	assert (lhs >= rhs);
+	return clampedSubtraction(lhs, rhs);
 }
 
 
