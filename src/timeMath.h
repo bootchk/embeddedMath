@@ -2,8 +2,6 @@
 
 #include "types.h"	// DeltaTime, LongTime
 
-//#include <radioSoC.h>   // LongTime, LongClock
-
 /*
  * Knows math on time.
  *
@@ -39,38 +37,43 @@
 
 
 
-
+/*
+ * Arithmetic on LongTime yielding a DeltaTime (Duration) suitable for timeouts on platform.
+ */
 class TimeMath {
 
-public:
-	// Arithmetic on LongTime yielding a DeltaTime suitable for timeouts on platform
+	/*
+	 * DeltaTime constrained to 24-bits.
+	 * So can be used to set Timer constrained to 24-bit.
+	 */
+	static const unsigned int MaxDeltaTime = 0xFFFFFF;
 
+public:
+	/*
+	 * Not require laterTime is after earlierTime
+	 * Returns forward time difference when laterTime after earlierTime.
+	 * Returns zero when laterTime before earlierTime.
+	 * Requires difference < MaxDeltaTime.
+	 *
+	 * !!!! Note the parameters are not in time order, the laterTime is first parameter
+	 */
 	static DeltaTime clampedTimeDifference(LongTime laterTime, LongTime earlierTime);
-	static DeltaTime clampedTimeDifferenceFromNow(const LongTime laterTime);
-	static DeltaTime clampedTimeDifferenceToNow(LongTime earlierTime);
-	static DeltaTime timeDifferenceFromNow(LongTime givenTime);
+
+
 
 	/*
 	 * Difference of DeltaTimes.
 	 * Clamped to zero if rhs is larger than leftHandSize
 	 */
 	static DeltaTime clampedSubtraction(DeltaTime lhs, DeltaTime rhs);
+
 	/*
 	 * Difference of DeltaTimes.
 	 * As above, but also asserts if lhs is larger than rhs (if would clamp)
 	 */
 	static DeltaTime deltaSubtraction(DeltaTime lhs, DeltaTime rhs);
 
-	/*
-	 * Elapsed DeltaTime since earlierTime, referenced to now.
-	 * Asserts if earlierTime is after now.
-	 * Asserts if difference between earlierTime and now is larger than max DeltaTime.
-	 *
-	 * Use this when LongTime was simply recorded in the past (not the result of math.)
-	 */
-	static DeltaTime elapsed(LongTime earlierTime);
 
-private:
 	/*
 	 * Convert LongTime (typically result of difference) to OSTime, asserting no loss of data
 	 */

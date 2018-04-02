@@ -62,7 +62,7 @@ unsigned int randUnsignedInt(unsigned int min, unsigned int max) {
  * Random flip of a fair coin.
  * Depends on rand()
  */
-bool randBool() {
+bool randBool(void) {
 	unsigned int result = rand() % 2;
 	assert( result == 0 || result == 1);
 	return result;	// coerce to bool
