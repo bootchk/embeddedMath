@@ -1,6 +1,6 @@
 #pragma once
 
-#include "types.h"	// DeltaTime, LongTime
+#include "timeTypes.h"	// DeltaTime, LongTime
 
 /*
  * Knows math on time.

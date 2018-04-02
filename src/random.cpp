@@ -29,7 +29,7 @@
  * Here we explicitly use unsigned operands.
  */
 
-unsigned int randUnsignedInt(unsigned int min, unsigned int max) {
+unsigned int Random::unsignedInt(unsigned int min, unsigned int max) {
 	/*
 	 * Typical implementation with slight flaws in uniform distribution:
 	 * Unless max-min divides int without a remainder, binning means some bins receive more
@@ -58,17 +58,14 @@ unsigned int randUnsignedInt(unsigned int min, unsigned int max) {
 	return result;
 }
 
-/*
- * Random flip of a fair coin.
- * Depends on rand()
- */
-bool randBool(void) {
+
+bool Random::coinToss(void) {
 	unsigned int result = rand() % 2;
 	assert( result == 0 || result == 1);
 	return result;	// coerce to bool
 }
 
-bool randomProbability(unsigned int inverseProbability) {
+bool Random::eventWInverseProbability(unsigned int inverseProbability) {
 	// 0 is arbitrary, could be any positive integer less than inverseProbability
 	bool result = (rand() % inverseProbability) == 0;
 	return result;

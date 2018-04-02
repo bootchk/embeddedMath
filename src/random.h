@@ -2,16 +2,27 @@
 #pragma once
 
 
-
-// Wrapper to platform provided std lib functions
-
-// Get a random integer in the range [min, max] including both end points.
-// depends on stdlib rand()
-unsigned int randUnsignedInt(unsigned int min, unsigned int max);
-
-// Random flip of fair coin
-// depends on rand()
-bool randBool();
+/*
+ * Augment  platform provided std lib function: rand()
+ *
+ * Is a class so that names always mangled (cmake was wierd about that.)
+ */
 
 
-bool randomProbability(unsigned int inverseProbability);
+class Random {
+public:
+	/*
+	 * random positive integer in the range [min, max] including both end points.
+	 *
+	 * !!! rand() returns int, not unsigned int.
+	 */
+	static unsigned int unsignedInt(unsigned int min, unsigned int max);
+
+	/*
+	 *  Random flip of fair coin
+	 */
+	static bool coinToss();
+
+
+	static bool eventWInverseProbability(unsigned int inverseProbability);
+};

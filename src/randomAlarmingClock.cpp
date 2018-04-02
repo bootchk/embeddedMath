@@ -28,7 +28,7 @@ ClockCount cycleLength;
 
 void setAlarm() {
 	// cast to eliminate conversion warning
-	alarmTick = randUnsignedInt(0, (ClockCount) (cycleLength - 1));
+	alarmTick = Random::unsignedInt(0, (ClockCount) (cycleLength - 1));
 	// alarmTick in [0, CountSyncPeriodsToChooseMasterSyncXmits-1]
 }
 
