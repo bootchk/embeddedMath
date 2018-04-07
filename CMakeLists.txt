@@ -54,8 +54,7 @@ list(APPEND MY_SOURCE_LIST
    ${MY_SOURCE_DIR}/timeMath.cpp
 )
 
-target_sources(
-    embeddedMath52
+target_sources(embeddedMath52
     PUBLIC
        "${MY_SOURCE_LIST}"
     )
