@@ -33,7 +33,7 @@ nRF5SetBuildOptions()
 # libraries
 # Each specific to a ARM M0 or M4 (nrf51 or nrf52)
 
-add_library(embeddedMath52 "")
+add_library(embeddedMath52 STATIC "")
 
 set_target_properties( embeddedMath52
     PROPERTIES
@@ -44,6 +44,14 @@ set_target_properties( embeddedMath52
 nRF5CheckTargetProperties(embeddedMath52)
 nRF5ConfigTargetByProperties(embeddedMath52)
 # No startup sources or link script
+
+#install(TARGETS embeddedMath52
+#    EXPORT embeddedMathTargets
+#    DESTINATION lib)
+#install(EXPORT embeddedMathTargets
+#    DESTINATION lib)
+
+
 
 
 set(MY_SOURCE_DIR "${CMAKE_CURRENT_LIST_DIR}/src")
@@ -59,11 +67,15 @@ target_sources(embeddedMath52
        "${MY_SOURCE_LIST}"
     )
     
+#target_include_directories(embeddedMath52
+#   PUBLIC
+#       $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
+ #      $<INSTALL_INTERFACE:/src>
+#   )
+   
 target_include_directories(embeddedMath52
    PUBLIC
-       "${CMAKE_CURRENT_LIST_DIR}"
-       "${CMAKE_CURRENT_LIST_DIR}/src"
-   )
+   "${CMAKE_CURRENT_LIST_DIR}/src")
     
 
 
